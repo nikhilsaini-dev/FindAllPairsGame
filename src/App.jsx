@@ -14,6 +14,7 @@ const App = () => {
   const [flippedCards, setFlippedCards] = useState([]);
   const [matchedCards, setMatchedCards] = useState([]);
   const [moves, setMoves] = useState(0);
+  const [isWin, setIsWin] = useState(false)
 
   const handleClick = (card) => {
     if (flippedCards.length === 2) return;
@@ -58,6 +59,20 @@ const App = () => {
     }
   }, [flippedCards]);
 
+  useEffect(()=>{
+    if(matchedCards.length === images.length){
+      setIsWin(true)
+    }
+  },[matchedCards])
+
+ const shareScore = () => {
+  const text = ` I completed the Memory Card Game in ${moves} moves!
+Play here: https://find-all-pairs-game-fshq.vercel.app`;
+
+  const url = 'https://wa.me/?text=${encodeURIComponent(text)}';
+  window.open(url, "_blank");
+};
+
   return (
     <div className="min-h-screen flex flex-col  justify-center items-center bg-gradient-to-br from-slate-900 via-black to slate-800 text-white px-4  py-6">
       <h1
@@ -89,6 +104,23 @@ text-white text-lg sm:text-xl font-semibold border border-white/20 shadow-lg"
           />
         ))}
       </div>
+
+   {isWin && (
+  <div className="mt-6 flex flex-col items-center gap-4 w-full px-4">
+    <h1 className="text-4xl font-bold text-green-400 animate-bounce text-center mt-6">
+      You Win! 
+    </h1>
+
+    <button
+      onClick={shareScore}
+      className="w-full sm:w-auto bg-green-500 hover:bg-green-600
+      text-white font-semibold py-3 px-6 rounded-xl shadow-lg transition"
+    >
+      Share your score on WhatsApp
+    </button>
+  </div> 
+)}
+
     </div>
   );
 };
