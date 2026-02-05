@@ -66,10 +66,10 @@ const App = () => {
   },[matchedCards])
 
  const shareScore = () => {
-  const text = ` I completed the Memory Card Game in ${moves} moves!
+  const text = `I completed the Memory Card Game in ${moves} moves!
 Play here: https://find-all-pairs-game-fshq.vercel.app`;
 
-  const url = 'https://wa.me/?text=${encodeURIComponent(text)}';
+  const url = `https://wa.me/?text=${encodeURIComponent(text)}`;
   window.open(url, "_blank");
 };
 
